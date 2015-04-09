@@ -2,6 +2,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutRegularExpressions < Neo::Koan
+  # regular expressions http://ruby-doc.org/core-2.2.0/Regexp.html
+  # starts with / has sequence of characters to match /
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
     # http://ruby-doc.org/core-2.2.0/Regexp.html
@@ -12,29 +14,34 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_failed_match_returns_nil
+    # nil means it didn't match
     assert_equal nil, "some matching content"[/missing/]
   end
 
   # ------------------------------------------------------------------
 
   def test_question_mark_means_optional
+    #rubular has a quick reference set
     assert_equal "ab", "abbcccddddeeeee"[/ab?/]
     assert_equal "a", "abbcccddddeeeee"[/az?/]
   end
 
   def test_plus_means_one_or_more
     assert_equal "bccc", "abbcccddddeeeee"[/bc+/]
+    # plus has to have at least one, otherwise, it'll be nil
   end
 
   def test_asterisk_means_zero_or_more
     assert_equal "abb", "abbcccddddeeeee"[/ab*/]
     assert_equal "a", "abbcccddddeeeee"[/az*/]
     assert_equal "", "abbcccddddeeeee"[/z*/]
+    # zero is technically a match, hence the empty  ""
 
     # THINK ABOUT IT:
     #
     # When would * fail to match?
     # ...when there's nothing to match
+    # .* pretty much is looking for everything beyond all...
   end
 
   # THINK ABOUT IT:
@@ -47,6 +54,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_the_left_most_match_wins
     assert_equal "a", "abbccc az"[/az*/]
+    #this is a bracket accessor---only checks the very first time it matches anything
   end
 
   # ------------------------------------------------------------------
@@ -54,6 +62,8 @@ class AboutRegularExpressions < Neo::Koan
   def test_character_classes_give_options_for_a_character
     animals = ["cat", "bat", "rat", "zat"]
     assert_equal ["cat", "bat", "rat"], animals.select { |a| a[/[cbr]at/] }
+    assert_equal ["cat", "bat", "rat"], animals.select { |animal| animal[/[cbr]at/] }
+    #block 
   end
 
   def test_slash_d_is_a_shortcut_for_a_digit_character_class
@@ -71,6 +81,7 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_slash_w_is_a_shortcut_for_a_word_character_class
     # NOTE:  This is more like how a programmer might define a word.
+    # spaces do not count as a character
     assert_equal "variable_1", "variable_1 = 42"[/[a-zA-Z0-9_]+/]
     assert_equal "variable_1", "variable_1 = 42"[/\w+/]
   end
@@ -80,6 +91,9 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_a_character_class_can_be_negated
+    # hats ^ allows for a chracter to be ignored or excluded [^\.,]*
+    # but hats make it so that it has to start with that very letter
+    # allows for . and , to be ignored e.g. if 4.2, still comes up  
     assert_equal "the number is ", "the number is 42"[/[^0-9]+/]
   end
 
@@ -112,6 +126,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_slash_b_anchors_to_a_word_boundary
+    #word boundary: \b any word boundary
     assert_equal "vines", "bovine vines"[/\bvine./]
   end
 
@@ -122,6 +137,7 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # capture groups!
 
   def test_parentheses_also_capture_matched_content_by_number
     assert_equal "Gray", "Gray, James"[/(\w+), (\w+)/, 1]
@@ -132,6 +148,7 @@ class AboutRegularExpressions < Neo::Koan
     assert_equal "Gray, James", "Name:  Gray, James"[/(\w+), (\w+)/]
     assert_equal "Gray", $1
     assert_equal "James", $2
+    #global variable to store the rest....
   end
 
   # ------------------------------------------------------------------
@@ -153,6 +170,7 @@ class AboutRegularExpressions < Neo::Koan
   def test_scan_is_like_find_all
     assert_equal ["one", "two", "three"], "one two-three".scan(/\w+/)
     #scan returns an array here
+    #pipes are really like 'or'
   end
 
   def test_sub_is_like_find_and_replace
@@ -162,5 +180,6 @@ class AboutRegularExpressions < Neo::Koan
   def test_gsub_is_like_find_and_replace_all
     assert_equal "one t-t", "one two-three".gsub(/(t\w*)/) { $1[0, 1] }
     # last part doesn't include a space
+    # use rubular.com to test stuff out.  use docs on the regular expressions
   end
 end
