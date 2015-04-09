@@ -43,8 +43,8 @@ class AboutStrings < Neo::Koan
 It was the best of times,
 It was the worst of times.
 }
-    assert_equal 54, long_string.length
-    assert_equal 3, long_string.lines.count
+    assert_equal 76, long_string.length
+    assert_equal 4, long_string.lines.count
     assert_equal "\n", long_string[0,1]
   end
 
@@ -54,9 +54,9 @@ It was the worst of times.
 It was the best of times,
 It was the worst of times.
 EOS
-    assert_equal 53, long_string.length
-    assert_equal 2, long_string.lines.count
-    assert_equal "I", long_string[0,1]
+    assert_equal 195, long_string.length
+    assert_equal 3, long_string.lines.count
+    assert_equal " ", long_string[0,1]
   end
 
   def test_plus_will_concatenate_two_strings
