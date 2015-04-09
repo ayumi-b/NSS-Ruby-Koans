@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
+  #:symbol{Symbol  it's unique! one version of a given symbol in memory
+  #"symbol"{string
   def test_symbols_are_symbols
     symbol = :ruby
     assert_equal true, symbol.is_a?(Symbol)
@@ -25,6 +27,9 @@ class AboutSymbols < Neo::Koan
   end
 
   def test_method_names_become_symbols
+    # just asking about it as symbols--or merely talking about those strings as symbols make them symbols
+    # :a_symbol = cat;   this would make the cat into :cat because we've talked about it
+    # everything is an object....
     symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
     assert_equal true, symbols_as_strings.include?("test_method_names_become_symbols")
   end
@@ -35,6 +40,8 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version("mri") do
+    # symbols are forever....so don't just keep creating them
+    # symbols do not behave like strings
     RubyConstant = "What is the sound of one hand clapping?"
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
