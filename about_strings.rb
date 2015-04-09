@@ -15,6 +15,7 @@ class AboutStrings < Neo::Koan
   def test_use_single_quotes_to_create_string_with_double_quotes
     string = 'He said, "Go Away."'
     assert_equal "He said, \"Go Away.\"", string
+    #escaped double quote is a character..., that's why the \ comes before
   end
 
   def test_use_double_quotes_to_create_strings_with_single_quotes
@@ -38,6 +39,7 @@ class AboutStrings < Neo::Koan
 
   def test_flexible_quotes_can_handle_multiple_lines
     long_string = %{
+    # EOS....heardocs
 It was the best of times,
 It was the worst of times.
 }
@@ -48,6 +50,7 @@ It was the worst of times.
 
   def test_here_documents_can_also_handle_multiple_lines
     long_string = <<EOS
+    # any use for flexible quotes? using single quotes can allow things to be broken up instead of being a giant long paragraph ofrosmehting.
 It was the best of times,
 It was the worst of times.
 EOS
@@ -57,6 +60,7 @@ EOS
   end
 
   def test_plus_will_concatenate_two_strings
+    # string concatenation....
     string = "Hello, " + "World"
     assert_equal "Hello, World", string
   end
@@ -85,6 +89,11 @@ EOS
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
+    # shovel allows for another variable to be placed like an array;
+    # shovels mutate the string that you're modifying
+    # shovels do not always have to mutate though
+    # http://stackoverflow.com/questions/4684446/why-is-the-shovel-operator-preferred-over-plus-equals-when-building-a
+    # shovels preferred over +=
     hi = "Hello, "
     there = "World"
     hi << there
@@ -106,6 +115,9 @@ EOS
   end
 
   def test_double_quoted_string_interpret_escape_characters
+    # when escaping character, it's two chracters, not one
+    # single quotes do not acknowledge escape quote things....because it needs a way to acknowledge
+    # something like \' if it's supposed to be that way.
     string = "\n"
     assert_equal 1, string.size
   end
@@ -122,6 +134,7 @@ EOS
   end
 
   def test_double_quoted_strings_interpolate_variables
+    # string interpolation
     value = 123
     string = "The value is #{value}"
     assert_equal "The value is 123", string
@@ -139,6 +152,7 @@ EOS
   end
 
   def test_you_can_get_a_substring_from_a_string
+    # inclusive range
     string = "Bacon, lettuce and tomato"
     assert_equal "let", string[7,3]
     assert_equal "let", string[7..9]
@@ -168,6 +182,8 @@ EOS
   end
 
   def test_strings_can_be_split
+    # string split can be done with regular expressions;
+    # corollary is 'join'
     string = "Sausage Egg Cheese"
     words = string.split
     assert_equal ["Sausage","Egg", "Cheese"], words
@@ -189,6 +205,8 @@ EOS
   end
 
   def test_strings_are_unique_objects
+    #shows that just because things look the same, doesn't mean it's the same thing
+    #a = b, but a is not the same thing as b
     a = "a string"
     b = "a string"
 
