@@ -5,6 +5,7 @@ def my_global_method(a,b)
 end
 
 class AboutMethods < Neo::Koan
+  #global methods
 
   def test_calling_global_methods
     assert_equal 5, my_global_method(2,3)
@@ -14,6 +15,7 @@ class AboutMethods < Neo::Koan
     result = my_global_method 2, 3
     assert_equal 5, result
     # made change on the eval on line 22 to make this work
+    # this is too ambiguous, so that's why change made below
   end
 
   # (NOTE: We are Using eval below because the example code is
@@ -38,6 +40,8 @@ class AboutMethods < Neo::Koan
       my_global_method
     end
     assert_match(/wrong number/, exception.message)
+    # assert_match(/wrong number of arguments \(3 for 2\)/, exception.message)
+
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1,2,3)
@@ -46,7 +50,7 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  # check the instance v. global
   def method_with_defaults(a, b=:default_value)
     [a, b]
   end
@@ -63,6 +67,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_with_variable_arguments
+    #star-args always gives you an array
     assert_equal Array, method_with_var_args.class
     assert_equal [], method_with_var_args
     assert_equal [:one], method_with_var_args(:one)
@@ -79,6 +84,7 @@ class AboutMethods < Neo::Koan
 
   def test_method_with_explicit_return
     assert_equal :return_value, method_with_explicit_return
+    # implicit returns gives you whatever you got last
   end
 
   # ------------------------------------------------------------------
@@ -105,14 +111,17 @@ class AboutMethods < Neo::Koan
   def test_calling_methods_in_same_class_with_explicit_receiver
     assert_equal 12, self.my_method_in_the_same_class(3,4)
     # need to look up how self works
+    # self is like 'this'
   end
 
   # ------------------------------------------------------------------
-
+  #private methods can only be called by this instance...
   def my_private_method
     "a secret"
   end
   private :my_private_method
+  #has to be called on the symbol for this since all should be private
+  #not just the answer of my_private_method
 
   def test_calling_private_methods_without_receiver
     assert_equal "a secret", my_private_method
@@ -121,8 +130,12 @@ class AboutMethods < Neo::Koan
   def test_calling_private_methods_with_an_explicit_receiver
     exception = assert_raise(NoMethodError) do
       self.my_private_method
+      #self.private doesn't allow for re-entry, explicit receiver refers to this self.
     end
     assert_match /method/, exception.message
+    #assert_match /private method/, exception.message
+
+
   end
 
   # ------------------------------------------------------------------
