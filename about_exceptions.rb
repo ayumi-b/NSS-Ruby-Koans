@@ -25,6 +25,7 @@ class AboutExceptions < Neo::Koan
 
     assert_equal true, ex.is_a?(StandardError), "Should be a Standard Error"
     assert_equal true, ex.is_a?(RuntimeError),  "Should be a Runtime Error"
+    #last message is the optional error message
 
     assert RuntimeError.ancestors.include?(StandardError),
       "RuntimeError is a subclass of StandardError"
@@ -43,12 +44,13 @@ class AboutExceptions < Neo::Koan
 
     assert_equal :exception_handled, result
     assert_equal "My Message", ex.message
+    #my message pops up because that's the specialerror message you picked
   end
 
-  # Using begin, rescue, and finally statements is error handling in Ruby. 
-  # The same as try/catch/finally in other languages. You can have multiple 
-  # rescue statements to handle different exceptions. An ensure statement is 
-  # just like a finally statement. It will always run after all rescue 
+  # Using begin, rescue, and finally statements is error handling in Ruby.
+  # The same as try/catch/finally in other languages. You can have multiple
+  # rescue statements to handle different exceptions. An ensure statement is
+  # just like a finally statement. It will always run after all rescue
   # statements have.
 
 
