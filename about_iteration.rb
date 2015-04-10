@@ -25,6 +25,7 @@ class AboutIteration < Neo::Koan
 
   def test_each_is_a_method_on_arrays
     assert_equal true, [].methods.include?(as_name(:each))
+    #like a for loop
   end
 
   def test_iterating_with_each
@@ -59,6 +60,7 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], new_array
 
     # NOTE: 'map' is another name for the 'collect' operation
+    # performs an operation on each item in the array, and creates a new array
     another_array = array.map { |item| item + 10 }
     assert_equal [11, 12, 13], another_array
   end
@@ -78,13 +80,17 @@ class AboutIteration < Neo::Koan
     array = ["Jim", "Bill", "Clarence", "Doug", "Eli"]
 
     assert_equal "Clarence", array.find { |item| item.size > 4 }
+    #just the first instance of match
   end
 
   def test_inject_will_blow_your_mind
+    #reduces it down to one value
+    # 0 + 2, 2 + 3, 5 + 4
     result = [2, 3, 4].inject(0) { |sum, item| sum + item }
     assert_equal 9, result
 
     result2 = [2, 3, 4].inject(1) { |product, item| product * item }
+    # 1 x 2, 2 x 3, 6 x 4
     assert_equal 24, result2
 
     # Extra Credit:
@@ -109,6 +115,7 @@ class AboutIteration < Neo::Koan
     assert_equal [11, 12, 13], result
 
     # Files act like a collection of lines
+    # interaction with file, given as block
     File.open("example_file.txt") do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal ["THIS", "IS", "A", "TEST"], upcase_lines
