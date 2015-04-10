@@ -13,9 +13,28 @@
 # and
 #   about_triangle_project_2.rb
 #
+#def triangle(a, b, c)
+  ## WRITE THIS CODE
+  #sides_equal [ a == b, b == c, c == a]
+  #if sides_equal.all?
+    #:equilateral
+  #elsif sides_equal.none?
+    #:scalene
+  #else
+    #:isosceles
+  #end
+#end
+
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  raise TriangleError, "All Sides must be greater than zero" if (a == 0) | (b == 0) | (c == 0)
+  raise TriangleError, "Sides cannot be a negative number" if (a < 0) | (b < 0) | (c < 0)
+  raise TriangleError, "rule: Two sides can never be less than the sum of one side" if ((a + b) < c) | ((a + c) < b) | ((b + c) < a)
+  raise TriangleError, "rule: Two sides can never be equal one side" if ((a + b) ==  c) | ((a + c) ==  b) | ((b + c) ==  a)
+  return :equilateral if (a == b) & (a == c) & (b == c)
+  return :isosceles if (a == b) | (a == c) | (b == c)
+  return :scalene
 end
+
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
