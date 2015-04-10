@@ -3,6 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 C = "top level"
 
 class AboutConstants < Neo::Koan
+  #constants are kind of like globals...
+  #double colons calls it from the 
 
   C = "nested"
 
@@ -20,7 +22,9 @@ class AboutConstants < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
+  #check on name space
+  #example of a nested class
+  #allows access outside module, so animal::nestedanimal allows access outside 
   class Animal
     LEGS = 4
     def legs_in_animal
@@ -68,10 +72,13 @@ class AboutConstants < Neo::Koan
 
   # QUESTION: Which has precedence: The constant in the lexical scope,
   # or the constant from the inheritance hierarchy?
+  # lexical scope=box, inheritance scope=shovels
 
   # ------------------------------------------------------------------
 
   class MyAnimals::Oyster < Animal
+    #this isn't inside the 'myanimals' box, so
+    #inheritance comes from animal instead
     def legs_in_oyster
       LEGS
     end
