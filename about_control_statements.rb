@@ -94,6 +94,7 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_break_statement
+    #break simply stops/breaks out of the loop
     i = 1
     result = 1
     while true
@@ -105,6 +106,7 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_break_statement_returns_values
+    # don't do this set up....
     i = 1
     result = while i <= 10
       break i if i % 2 == 0
@@ -115,6 +117,8 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_next_statement
+    #this skips
+    #and you can just ask if even in ruby
     i = 0
     result = []
     while i < 10
@@ -135,6 +139,7 @@ class AboutControlStatements < Neo::Koan
   end
 
   def test_times_statement
+    # ruby loop
     sum = 0
     10.times do
       sum += 1
