@@ -5,6 +5,15 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # class DiceSet
 #   code ...
 # end
+# http://ruby-doc.org/core-2.1.2/Module.html#method-i-attr_reader
+class DiceSet
+  attr_reader :values
+
+  def roll(num)
+    @values = (1..num).map { rand(6) + 1}
+    #makes this value for each instance....
+  end
+end
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
