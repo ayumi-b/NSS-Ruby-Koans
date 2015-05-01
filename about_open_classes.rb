@@ -30,6 +30,7 @@ class AboutOpenClasses < Neo::Koan
   # ------------------------------------------------------------------
 
   class ::Integer
+    #breaks open the box, and the looks back in
     def even?
       (self % 2) == 0
     end

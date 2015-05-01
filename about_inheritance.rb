@@ -14,6 +14,7 @@ class AboutInheritance < Neo::Koan
   end
 
   class Chihuahua < Dog
+    #dog inherits from object
     def wag
       :happy
     end
@@ -72,6 +73,7 @@ class AboutInheritance < Neo::Koan
   class GreatDane < Dog
     def growl
       super.bark + ", GROWL"
+      #no parent method called growl (has bark, but not def growl)
     end
   end
 

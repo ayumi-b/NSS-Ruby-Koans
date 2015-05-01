@@ -14,10 +14,12 @@ class AboutModules < Neo::Koan
   def test_cant_instantiate_modules
     assert_raise(NoMethodError) do
       Nameable.new
+      #can't create an instance on a new module...
     end
   end
 
   # ------------------------------------------------------------------
+  # but you can certainly include it
 
   class Dog
     include Nameable

@@ -16,9 +16,48 @@ class Proxy
   def initialize(target_object)
     @object = target_object
     # ADD MORE CODE HERE
+    @messages = []
+    @times_called = Hash.new(0)
+    #creates a dynamic array here---0 is the default value
+
   end
 
   # WRITE CODE HERE
+  attr_reader :messages
+
+  def method_missing(method_name, *args, &block)
+    if @object.respond_to?(method_name) # @object responds to method
+      # Add 1 to the # of times the method is called.
+      @times_called[method_name] += 1
+      # Add the method_name to the @messages array if it hasn't been called already.
+      unless @messages.include?(method_name)
+        @messages << method_name
+      end
+      @object.send(method_name, *args) # Call that method
+      # Note the use of a splat again.  Since the original splat in method_missing transformed
+      # parameters to an array, this retransforms the array back into parameters.
+      #
+      # The send() method MUST be last in the "if" block, since that's what the return value will be.
+    else
+      super(method_name, *args, &block)
+    end
+  end
+
+  def called?(method_name)
+    @times_called.key?(method_name)
+  end
+
+  def number_of_times_called(method_name)
+    # if called?(method_name)
+    #     @times_called[method_name]
+    # else
+    #     0
+    # end
+    # REFACTOR
+    called?(method_name) ? @times_called[method_name] : 0
+  end
+
+
 end
 
 # The proxy object should pass the following Koan:

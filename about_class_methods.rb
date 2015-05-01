@@ -4,6 +4,7 @@ class AboutClassMethods < Neo::Koan
   class Dog
     #objects are instantiated classes...
     #class methods exist for the class itself
+    #functionality of new comes from class
   end
 
   def test_objects_are_objects
@@ -29,6 +30,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   def test_you_can_define_methods_on_individual_objects
+    #this exists, but not recommended
     fido = Dog.new
     def fido.wag
       :fidos_wag
@@ -77,6 +79,7 @@ class AboutClassMethods < Neo::Koan
   end
 
   def Dog.name
+    #executed in the class, name isn't set for the instance
     @name
   end
 

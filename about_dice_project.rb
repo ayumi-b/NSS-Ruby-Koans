@@ -11,7 +11,8 @@ class DiceSet
 
   def roll(num)
     @values = (1..num).map { rand(6) + 1}
-    #makes this value for each instance....
+    #makes this value for each instance...
+    #.map gets a value for each value in the ()
   end
 end
 

@@ -14,6 +14,7 @@ class AboutClasses < Neo::Koan
   class Dog2
     def set_name(a_name)
       @name = a_name
+      #denotes instance variable
     end
   end
 
@@ -23,6 +24,7 @@ class AboutClasses < Neo::Koan
 
     fido.set_name("Fido")
     assert_equal [:@name], fido.instance_variables
+    #:@ denotes 'a thing called @name'
   end
 
   def test_instance_variables_cannot_be_accessed_outside_the_class
@@ -35,7 +37,9 @@ class AboutClasses < Neo::Koan
 
     assert_raise(SyntaxError) do
       eval "fido.@name"
+      # eval: makes a string and asks to be executed ---not allowed 
       # NOTE: Using eval because the above line is a syntax error.
+      # look up: Interpreter
     end
   end
 
@@ -52,16 +56,23 @@ class AboutClasses < Neo::Koan
 
     assert_equal "Fido", fido.instance_eval("@name")  # string version
     assert_equal "Fido", fido.instance_eval { @name } # block version
+    #these are ways to access variables that aren't easily accessed
   end
 
   # ------------------------------------------------------------------
+  # Accessor Method
+  # below shows a set that has setter/getter
 
   class Dog3
     def set_name(a_name)
       @name = a_name
+      #stores the variable here
     end
     def name
       @name
+      #this makes it allowable to get the name easily
+      #using the variable here
+      #name is a method whose job is to access the current name
     end
   end
 
@@ -73,9 +84,11 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # Attr_Reader
 
   class Dog4
     attr_reader :name
+    #writes the method, saves time---sets the 'get'
 
     def set_name(a_name)
       @name = a_name
@@ -91,6 +104,7 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # Att_Accessor combines both Reader and Writer
 
   class Dog5
     attr_accessor :name
@@ -136,6 +150,9 @@ class AboutClasses < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # SELF never refers to some other object.
+  # to_s and inspect creates representation
+  # inspect is like furigana on some characters?
 
   class Dog7
     attr_reader :name

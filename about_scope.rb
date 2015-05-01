@@ -40,6 +40,7 @@ class AboutScope < Neo::Koan
 
   def test_bare_bones_class_names_assume_the_current_scope
     assert_equal true, AboutScope::String == String
+    #it's accesses the immediate String class on the way out of the box
   end
 
   def test_nested_string_is_not_the_same_as_the_system_string
